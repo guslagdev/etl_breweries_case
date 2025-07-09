@@ -6,7 +6,7 @@ services:
     image: etl-brew-apache-spark:3.5.0
     ports:
       - "9091:8080"
-      - "7000:7000"
+      - "7077:7077"
     volumes:
       - ./apss:/opt/spark-apps
       - ./data:/opt/spark-data
