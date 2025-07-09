@@ -1,1 +1,3 @@
-# etl_breweries_case
+# Breweries Case
+
+Repositório com arquivos de case técnico
