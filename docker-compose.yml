@@ -12,8 +12,7 @@ services:
     environment:
       - SPARK_LOCAL_IP=spark-master
       - SPARK_WORKLOAD=master
-    networks:
-      - data-pipeline-net
+
   #Spark worker
   spark-worker-a:
     image: etl-brew-apache-spark:3.5.0
@@ -37,5 +36,3 @@ services:
       - ./apps:/opt/spark-apps
       - ./data:/opt/spark-data
       - ./wait-for-it.sh:/usr/local/bin/wait-for-it.sh:ro
-    networks:
-      - data-pipeline-net
