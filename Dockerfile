@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y curl vim wget software-properties-commo
 RUN update-alternatives --install "/usr/bin/python" "python" "$(which python3)" 1
 
 # Fix value of PYTHONHASHSEED
-ENV SPARK_VERSION=3.4.0 \
+ENV SPARK_VERSION=3.5.0 \
 HADOOP_VERSION=3 \
 SPARK_HOME=/opt/spark \
 PYTHONHASHSEED=1
