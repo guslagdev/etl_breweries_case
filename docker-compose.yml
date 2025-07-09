@@ -1,21 +1,25 @@
-version: "3.8"
-
 services:
   # Spark master
   spark-master:
     image: etl-brew-apache-spark:3.5.0
+    command: bin/spark-class org.apache.spark.deploy.master.Master
     ports:
       - "9090:8080"
       - "7077:7077"
     volumes:
-      - ./apss:/opt/spark-apps
+      - ./apps:/opt/spark-apps
       - ./data:/opt/spark-data
     environment:
       - SPARK_LOCAL_IP=spark-master
       - SPARK_WORKLOAD=master
+    networks:
+      - data-pipeline-net
   #Spark worker
   spark-worker-a:
     image: etl-brew-apache-spark:3.5.0
+    command: >
+      /usr/local/bin/wait-for-it.sh spark-master:7077 -t 30 --
+      bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
     ports:
       - "9091:8080"
       - "7000:7000"
@@ -32,3 +36,6 @@ services:
     volumes:
       - ./apps:/opt/spark-apps
       - ./data:/opt/spark-data
+      - ./wait-for-it.sh:/usr/local/bin/wait-for-it.sh:ro
+    networks:
+      - data-pipeline-net

@@ -1,4 +1,3 @@
-#Start-spark.sh
 #!/bin/bash
 . "/opt/spark/bin/load-spark-env.sh"
 # Spark master
