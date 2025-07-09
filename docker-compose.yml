@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  # Spark master
+  spark-master:
+    image: etl-brew-apache-spark:3.5.0
+    ports:
+      - "9091:8080"
+      - "7000:7000"
+    volumes:
+      - ./apss:/opt/spark-apps
+      - ./data:/opt/spark-data
+    environment:
+      - SPARK_LOCAL_IP=spark-master
+      - SPARK_WORKLOAD=master
+  #Spark worker
+  spark-worker-a:
+    image: etl-brew-apache-spark:3.5.0
+    ports:
+      - "9091:8080"
+      - "7000:7000"
+    depends_on:
+      - spark-master
+    environment:
+      - SPARK_MASTER=spark://spark-master:7077
+      - SPARK_WORKER_CORES=1
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_DRIVER_MEMORY=1G
+      - SPARK_EXECUTOR_MEMORY=1G
+      - SPARK_WORKLOAD=worker
+      - SPARK_LOCAL_IP=spark-worker-a
+    volumes:
+      - ./apps:/opt/spark-apps
+      - ./data:/opt/spark-data
