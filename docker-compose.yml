@@ -5,11 +5,7 @@ services:
   spark-master:
     image: etl-brew-apache-spark:3.5.0
     ports:
-<<<<<<< HEAD
       - "9090:8080"
-=======
-      - "9091:8080"
->>>>>>> 5144bdcb307c5b7c146e5922378bcba2a0f17c81
       - "7077:7077"
     volumes:
       - ./apss:/opt/spark-apps
